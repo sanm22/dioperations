@@ -1,0 +1,213 @@
+@CHARSET "ISO-8859-1";
+h1 {
+	text-align: center;
+}
+
+button {
+	background-color: rgb(63, 81, 181);
+	color: white;
+	padding: 10px 15px;
+	margin-right: 10px;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	border-radius: 4px;
+}
+/*  Center the image and position the close button  */
+.imgcontainer {
+	text-align: center;
+	margin: 24px 0 12px 0;
+	padding: 20% position: fixed;
+	background:
+}
+img.avatar {
+	width: 40%;
+	border-radius: 50%;
+}
+.container {
+	padding: 20px;
+	border-radius: 10px;
+}
+span.psw {
+	float: right;
+	padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	border-radius: 10px;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+	padding-top: 50px;
+}
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto;
+	border-radius:10px;
+	/* 5% from the top, 15% from the bottom and centered */
+	border: 1px solid #888;
+	width: 24%; /* Could be more or less, depending on screen size */
+}
+.close:hover, .close:focus {
+	color: red;
+	cursor: pointer;
+}
+/* Add Zoom Animation */
+.animate {
+	-webkit-animation: animatezoom 0.6s;
+	animation: animatezoom 0.6s
+}
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+	span.psw {
+		display: block;
+		float: none;
+	}
+}
+
+p.lowercase {
+	text-transform: lowercase;
+	size: 10px;
+}
+table {
+	border-style: solid;
+	border-collapse: collapse;
+	border: 1px solid black;
+	table-layout: inherit;
+	width: 42cm;
+	height: auto;
+	overflow: scroll;
+}
+table1 {		
+	width: 5cm;
+	height: auto;
+	overflow: scroll;
+}
+TD {
+	font-family: sans-serif;
+	font-size: x-small;
+	font-weight: bolder;
+	padding-left: 3px;
+	width: auto;
+}
+TH {
+	font-family: sans-serif;
+	font-size: x-small;
+	font-weight: bolder;
+	padding: 3px;
+}
+body {
+	font-family: "Lato", sans-serif;
+}
+ul.tab {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 1px solid #778899;
+	background-color: #6495ED;
+}
+/* Style the links inside the list items */
+ul.tab li a {
+	display: inline-block;
+	float: left;
+	color: black;
+	font-weight: bold;
+	font-style: italic;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	transition: 0.3s;
+	font-size: 10px;
+	color: white;
+}
+ul.tab li img {
+	display: inline-block;
+	color: black;
+	float: right;
+	text-align: center;
+	transition: 0.3s;
+	font-size: 5px;
+	color: green;
+}
+.rotated-image {
+	-webkit-transform: rotate(360deg);
+	transform: rotate(360deg);
+	animation-name: rotation;
+	animation-delay: 10s;
+	animation-duration: 15s;
+	-webkit-animation-name: rotate;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-transition-timing-function: linear;
+	transition-duration: 5s;
+}
+ul.tab li button {
+	display: inline-block;
+	color: black;
+	float: right;
+	text-align: center;
+	transition: 0.3s;
+	font-size: 5px;
+	color: green;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+	background-color: #778899;
+}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+	background-color: #26a69a;
+}
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	overflow: scroll;
+	border-top: thick;
+	border-bottom: thick;
+	border-left: thick;
+	border-right: thick;
+}
+caption {
+	display: block;
+	line-height: 3em;
+	width: 100%;
+	-webkit-align-items: stretch;
+	border: 1px solid #eee;
+}
+table#alter th {
+	color: white;
+	background-color: rgb(63, 81, 181);
+	border: none;
+}
+table#alter td {
+	background-color: white;
+}
+.loader {
+	border: 16px solid #f3f3f3; /* Light grey */
+	border-top: 16px solid #3498db; /* Blue */
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	animation: spin 2s linear infinite;
+	transition-duration: 10s;
+}
+#load{
+    width:100%;
+    height:100%;
+    position:fixed;
+   /*  z-index:9999; */
+    background:url("../images/spinner.gif") no-repeat center center rgba(0,0,0,0.25);
+}
