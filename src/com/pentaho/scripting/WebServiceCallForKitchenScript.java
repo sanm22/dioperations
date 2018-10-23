@@ -17,27 +17,21 @@ import org.apache.log4j.Logger;
 import com.pentaho.dao.SingletonProperties;
 
 public class WebServiceCallForKitchenScript {
-	public static Properties prop = null;
-	final static Logger logger = Logger.getLogger(WebServiceCallForKitchenScript.class);
+//	public static Properties prop = null;
+
+	Logger logger = Logger.getLogger(WebServiceCallForKitchenScript.class);
 
 	public boolean callWebService(String jobPath, String jobName) throws ClientProtocolException, IOException {
 
 		try {
 			URL url_one = new URL(ResourceBundle.getBundle("dioperations").getString("KITCHENURL") + jobPath + jobName);
-			prop = SingletonProperties.getProperties();
-
-			String user = prop.getProperty("PENTAHO_USER1");
-			String pass = prop.getProperty("PENTAHO_PASS1");
-			logger.info("Running job using url with basic authentication \n"
-					+ ResourceBundle.getBundle("dioperations").getString("KITCHENURL") + jobPath + jobName);
-			logger.info("PENTAHO_USER1:" + prop.getProperty("PENTAHO_USER1"));
-
-			String encoding = Base64.getEncoder().encodeToString((user + ":" + pass).getBytes(StandardCharsets.UTF_8));
-
+			
+			logger.info("URLL "+url_one.toString());
+			
 			HttpURLConnection connection = (HttpURLConnection) url_one.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
-			connection.setRequestProperty("Authorization", "Basic " + encoding);
+
 			InputStream content = (InputStream) connection.getInputStream();
 			BufferedReader in = new BufferedReader(new InputStreamReader(content));
 			String line;

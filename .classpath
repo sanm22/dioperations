@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/apache-log4j-extras-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jcommon-1.0.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jfreechart-1.0.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.35-bin.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.json-0.0.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/antlr-2.7.7.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/cdi-api-1.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/classmate-1.3.0.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/geronimo-jta_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/hibernate-commons-annotations-5.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/jandex-2.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/javassist-3.20.0-GA.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/jboss-logging-3.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/hibernate-core-5.2.2.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/hk2-api-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/hk2-locator-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/hk2-utils-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/javassist-3.22.0-CR2.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/javax.annotation-api-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/javax.inject-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/javax.json.bind-api-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/javax.json-1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/javax.json-api-1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/javax.ws.rs-api-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jaxb-api-2.2.7.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-client.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-common.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-container-servlet.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-container-servlet-core.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-hk2.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-media-jaxb.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-media-json-binding.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-media-sse.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jersey-server.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/Jaxrs-ri-jars/jsr250-api-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/hibernate-cache/slf4j-api-1.5.6.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/hibernate-cache/hibernate-ehcache-5.2.2.Final.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/hibernate-cache/ehcache-core-2.4.0.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/hibernate-cache/slf4j-log4j12-1.5.6.jar"/>
+	<classpathentry kind="lib" path="D:/Workbench-Build117/lib/Hibernate Jars/hibernate-cache/ehcache-2.2.0.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

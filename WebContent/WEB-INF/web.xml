@@ -2,7 +2,6 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <display-name>dioperations</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
@@ -69,4 +68,73 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/LogoutServlet/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>GetRunningLoadsServlet</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.GetRunningLoadsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRunningLoadsServlet</servlet-name>
+    <url-pattern>/GetRunningLoadsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetFailedJobsServlet</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.GetFailedJobsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetFailedJobsServlet</servlet-name>
+    <url-pattern>/GetFailedJobsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetRunningJobsServlet</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.GetRunningJobsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRunningJobsServlet</servlet-name>
+    <url-pattern>/GetRunningJobsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetLoadStatusServlet</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.GetLoadStatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetLoadStatusServlet</servlet-name>
+    <url-pattern>/GetLoadStatusServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LoadControlTreeServlet</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.LoadControlTreeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoadControlTreeServlet</servlet-name>
+    <url-pattern>/LoadControlTreeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LoginController</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.LoginController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginController</servlet-name>
+    <url-pattern>/LoginController/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>TDEOperations</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.TDEOperations</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TDEOperations</servlet-name>
+    <url-pattern>/TDEOperations/*</url-pattern>
+  </servlet-mapping>
+  
+<servlet>
+    <servlet-name>StartTDELoad</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.StartTDELoad</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StartTDELoad</servlet-name>
+    <url-pattern>/StartTDELoad/*</url-pattern>
+  </servlet-mapping>
+  
+  <error-page>
+    <location>/error.jsp</location>
+  </error-page>
 </web-app>

@@ -37,8 +37,6 @@ public class AddNewJob extends HttpServlet {
 		String loadSchedule = request.getParameter("_loadSchedule");
 		System.out.println(loadName + subLoadName + jobName);
 
-		System.out.println(loadName + " " + subLoadName + " " + jobName + " " + jobOrder + " " + jobType + " " + jobPath
-				+ " " + enabledFlg + " " + loadSchedule + " " + loadId + " " + subLoadId);
 		logger.debug("values:" + loadName + " ," + subLoadName + ", " + jobName + " ," + jobOrder + " ," + jobType
 				+ " ," + jobPath + ", " + enabledFlg + ", " + loadSchedule + ", " + loadId + " ," + subLoadId);
 		

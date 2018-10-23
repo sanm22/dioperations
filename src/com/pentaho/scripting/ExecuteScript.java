@@ -15,7 +15,6 @@ public class ExecuteScript  {
 	/* Added for directly executing kitchen.sh */
 	
 	public static boolean executeScript() throws ClientProtocolException, IOException {
-		System.out.println("Execute script called");
 		
 		String jobPath = ShellScripting.path;
 		String jobName = ShellScripting.job;
@@ -27,16 +26,9 @@ public class ExecuteScript  {
 		JsonServlet.subload_name=null;
 		
 		
-		WebServiceCallForKitchenScript webServiceCallForKitchenScript= new WebServiceCallForKitchenScript();
-		boolean value=webServiceCallForKitchenScript.callWebService(jobPath, jobName);	
-		
-		System.out.println("Worked or not "+value);
-		
-		System.out.println("Path:"+jobPath);
-		System.out.println("jobName:"+jobName);
-		System.out.println("loadName:"+loadName);
-		System.out.println("subLoadName:"+subLoadName);
-		
+		WebServiceCallForKitchenScript ws= new WebServiceCallForKitchenScript();
+		boolean value=ws.callWebService(jobPath, jobName);	
+				
 		EntryIntoTableForJobStatus entryIntoTableForJobStatus= new EntryIntoTableForJobStatus();
 		if(value==true)
 			entryIntoTableForJobStatus.entryIntoTable(jobPath, jobName,loadName,subLoadName);

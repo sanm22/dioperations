@@ -38,8 +38,6 @@ public class AddNewSubLoadJobName extends HttpServlet {
 		String subLoadId = request.getParameter("subLoadId");
 		String loadSchedule = request.getParameter("_loadSchedule");
 
-		System.out.println(loadName + " " + subLoadName + " " + jobName + " " + jobOrder + " " + jobType + " " + jobPath
-				+ " " + enabledFlg + " " + loadSchedule + " " + loadId + " " + subLoadId);
 		logger.debug("values:" + loadName + " ," + subLoadName + ", " + jobName + " ," + jobOrder + " ," + jobType
 				+ " ," + jobPath + ", " + enabledFlg + ", " + loadSchedule + ", " + loadId + " ," + subLoadId);
 

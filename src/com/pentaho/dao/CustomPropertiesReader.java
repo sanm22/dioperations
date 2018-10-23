@@ -27,11 +27,17 @@ public class CustomPropertiesReader extends Properties {
 
 	public static CustomPropertiesReader getInstance(boolean runOnServer) throws FileNotFoundException, IOException {
 
+		logger.info("Is running on server aws :"+runOnServer);
 		if (reader == null) {
 			if (runOnServer) {
 				ResourceBundle bundle = ResourceBundle.getBundle("dioperations");
+				logger.info("Using Resources"+bundle.getBaseBundleName());
+				logger.info("Using Connection File"+bundle.getString("CONNECTION_ENV_FILE"));
+				logger.info("Using Configuration File "+bundle.getString("CONFIGURATION_ENV_FILE"));
+				
 				return reader = new CustomPropertiesReader().init(new File(bundle.getString("CONNECTION_ENV_FILE")),
 						new File(bundle.getString("CONFIGURATION_ENV_FILE")));
+				
 			} else {
 				return reader = new CustomPropertiesReader().init(new File("D:\\connection.env"),
 						new File("D:\\config.env"));
@@ -58,9 +64,9 @@ public class CustomPropertiesReader extends Properties {
 				}
 			}
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			logger.error(ioe.getMessage());
 		} catch (NullPointerException e) {
-			System.out.println("");
+			logger.error(e.getMessage());
 
 		} finally {
 
@@ -68,7 +74,6 @@ public class CustomPropertiesReader extends Properties {
 				if (br != null)
 					br.close();
 			} catch (IOException ioe) {
-				System.out.println("Error in closing the BufferedReader");
 				logger.error("Error in closing the BufferedReader:" + ioe.getMessage());
 			}
 
@@ -89,9 +94,9 @@ public class CustomPropertiesReader extends Properties {
 				}
 			}
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			logger.error(ioe.getMessage());
 		} catch (NullPointerException e) {
-			System.out.println("");
+			logger.error(e.getMessage());
 
 		} finally {
 
@@ -99,8 +104,7 @@ public class CustomPropertiesReader extends Properties {
 				if (br1 != null)
 					br1.close();
 			} catch (IOException ioe) {
-				System.out.println("Error in closing the BufferedReader");
-				logger.error("Error in closing the BufferedReader:" + ioe.getMessage());
+				logger.error(ioe.getMessage());
 			}
 		}
 		return this;

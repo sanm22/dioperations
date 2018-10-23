@@ -30,60 +30,50 @@ public class NewEntry {
 
 	public void setLoadName(String loadName) {
 		_loadName = loadName;
-		System.out.println("loadName:" + _loadName);
 	}
 
 	public void setSubjectAreaName(String subjectAreaName) {
 		_subjectAreaName = subjectAreaName;
-		System.out.println("subjectAreaName:" + _subjectAreaName);
 
 	}
 
 	public void setEnabledFlag(String enabledFlag) {
 		_enabledFlag = enabledFlag;
-		System.out.println("enabledFlag:" + _enabledFlag);
 
 	}
 
 	public void setJobOrder(String jobOrder) {
 		_jobOrder = jobOrder;
-		System.out.println("jobOrder:" + _jobOrder);
 
 	}
 
 	public void setJobType(String jobType) {
 		_jobType = jobType;
-		System.out.println("jobType:" + _jobType);
 
 	}
 
 	public void setJobPath(String jobPath) {
 		_jobPath = jobPath;
-		System.out.println("JobPath:" + _jobPath);
 
 	}
 
 	public void setJobName(String jobName) {
 		_jobName = jobName;
-		System.out.println("jobName:" + _jobName);
 
 	}
 
 	public void setLoadId(String loadId) {
 		_loadId = loadId;
-		System.out.println("loadId:" + _loadId);
 
 	}
 
 	public void setSubLoadId(String subLoadId) {
 		_subLoadId = subLoadId;
-		System.out.println("subLoadId:" + _subLoadId);
 
 	}
 
 	public void setLoadSchedule(String loadSchedule) {
 		_loadSchedule = loadSchedule;
-		System.out.println("loadSchedule:" + _loadSchedule);
 	}
 
 	public static List<MasterEtlLoadControl> getLoadName() throws FileNotFoundException, IOException {
@@ -138,7 +128,7 @@ public class NewEntry {
 
 			return workbenchList;
 		} catch (SQLException e) {
-
+			
 		}
 		return workbenchList;
 	}

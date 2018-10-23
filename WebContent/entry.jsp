@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="shortcut icon" href="./images/64px-Logitech.svg.png" />
 <title>D&I Operations</title>
 <link rel="stylesheet" href="css/entry.css">
 <link rel="stylesheet" href="css/table.css">

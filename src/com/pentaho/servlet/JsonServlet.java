@@ -27,11 +27,10 @@ public class JsonServlet extends HttpServlet {
 			throws ServletException, IOException, NullPointerException {
 		ShellScripting scripting = new ShellScripting();
 		logger.info("Script Selection values---");
-		System.out.println("Script Selection values---");
 		
 		String loadName = request.getParameter("loadName");
 		scripting.getLoad(loadName);
-		System.out.println("loadName-script:" + loadName);
+
 		logger.debug("loadName:" + loadName);
 		
 		if(load_name==null)
@@ -41,7 +40,7 @@ public class JsonServlet extends HttpServlet {
 
 		String subLoadName = request.getParameter("lloadName");
 		scripting.getSubLoad(subLoadName);
-		System.out.println("subload-script:" + subLoadName);
+
 		logger.debug("subload:" + subLoadName);
 		
 		if(subload_name==null)
@@ -51,7 +50,7 @@ public class JsonServlet extends HttpServlet {
 		
 		String jobName = request.getParameter("jobName");
 		scripting.getJobName(jobName);
-		System.out.println("jobname-script:" + jobName);
+
 		logger.debug("jobname:" + jobName);
 
 		List<String> list = new ArrayList<String>();

@@ -4,14 +4,17 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" href="css/color.css">
 <script defer src="js/material_js.js"></script>
-<head><title>D&I Operations</title></head>
+<head>
+<link rel="shortcut icon" href="./images/64px-Logitech.svg.png" />
+<title>D&I Operations</title>
+</head>
 <body>
 
 	<%@ page import="javax.servlet.http.*"%>
 	<%
-		if (session.getAttribute("name") != null)
-			response.sendRedirect("dashboard.jsp");
-		else {
+// 		if (session.getAttribute("name") != null)
+// 			response.sendRedirect("dashboard.jsp");
+// 		else { }
 	%>
 
 	<div class="mdl-layout mdl-js-layout">
@@ -27,7 +30,8 @@
 	</div>
 
 	<div id="id01" class="modal">
-		<form class="modal-content animate" action="LoginServlet"
+	<!-- Modified from LoginServlet to LoginController  by Mateen -->
+		<form class="modal-content animate" action="LoginController" 
 			method="post">
 			<div class="imgcontainer">
 				<img src="images/images.png">
@@ -61,8 +65,6 @@
 	<script>
 		var modal = document.getElementById('id01');
 	</script>
-	<%
-		}
-	%>
+ 
 </body>
 </html>

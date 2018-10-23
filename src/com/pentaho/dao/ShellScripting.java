@@ -38,7 +38,6 @@ public class ShellScripting {
 		while (itr.hasNext()) {
 			MasterEtlLoadControl workbench = itr.next();
 			path = workbench.getJobPath();
-			System.out.println("JobPath is:" + path);
 			logger.debug("JobPath is:" + path);
 		}
 

@@ -49,7 +49,6 @@ public class Script extends HttpServlet {
 			}
 
 		} else {
-			System.out.println("Script not executed");
 			logger.error("Script not executed");
 		}
 	

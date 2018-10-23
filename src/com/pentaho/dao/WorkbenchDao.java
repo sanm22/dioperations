@@ -55,8 +55,6 @@ public class WorkbenchDao {
 
 			ps.setString(2, uPassword);
 
-			logger.debug("Username:" + uName);
-			logger.debug("Password:" + uPassword);
 			rs = ps.executeQuery();
 			rs.next();
 			if (rs.getString(2) == null && uPassword == null) {

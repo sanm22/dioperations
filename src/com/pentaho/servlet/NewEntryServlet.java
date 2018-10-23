@@ -34,12 +34,10 @@ public class NewEntryServlet extends HttpServlet {
 		
 		scripting.getLoad(loadName);
 		
-		System.out.println("loadName:" + loadName);
 		logger.debug("loadName:" + loadName);
 
 		String subLoadName = request.getParameter("subLoad");
 		scripting.getSubLoad(subLoadName);
-		System.out.println("subload:" + subLoadName);
 		logger.debug("subload:" + subLoadName);
 
 		List<String> list = new ArrayList<String>();
