@@ -1,4 +1,10 @@
 *.properties
 *.xml
 *.class
-*.class
+*.prefs
+*.component
+*.container
+*.name
+*.jsdtscope
+*.project
+*.classpath
