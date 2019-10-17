@@ -2,7 +2,7 @@ package com.logitech.operationmart.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +22,7 @@ import com.logitech.operationmart.utils.DateConverterUtil;
 import com.logitech.operationmart.utils.HibernateUtil;
 import com.logitech.operationmart.beans.LoadStats;
 import com.logitech.operationmart.beans.RunningLoadsPerDate;
+import com.logitech.operationmart.beans.v2.FailedJobsPerDateBubbleBean;
 
 /*
  * @Author: Mateen SA 
@@ -29,11 +30,11 @@ import com.logitech.operationmart.beans.RunningLoadsPerDate;
  * @Date: 29-Aug-2018
  */
 
-public class GetLoadStatusServlet extends HttpServlet {
+public class GetFailedJobsServlet_V2 extends HttpServlet {
 
 	private static final long serialVersionUID = 100L;
 
-	public GetLoadStatusServlet() {
+	public GetFailedJobsServlet_V2() {
 		super();
 
 	}
@@ -51,31 +52,36 @@ public class GetLoadStatusServlet extends HttpServlet {
 			Session session = factory.openSession();
 			session.beginTransaction();
 
-			String queryString = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_RUNNING_JOBS");
+			String queryString = " "
+					+ " SELECT COUNT(1) as nr, e.loads.loadName, e.subLoads.subLoadName, date(e.runEndDate) as runEndDate, e.runStatus "
+					+ " FROM JobRuns e "
+					+ " WHERE 1=1 AND e.runStatus NOT IN ('Finished') "
+					+ " GROUP BY e.loads.loadName, e.subLoads.subLoadName, date(e.runEndDate), e.runStatus "
+					+ " ORDER BY date(e.runEndDate) DESC";
 
-			Query query = session.createQuery(queryString);
-			query.setMaxResults(5);
 
-			List<Object[]> rows = query.getResultList();
-			List<RunningLoadsPerDate> resultList = new ArrayList<RunningLoadsPerDate>();
-			for (Object[] line : rows) {
-				java.sql.Date runDate = (java.sql.Date) line[0];
-				Long lv = (Long) line[1];
-				resultList.add(new RunningLoadsPerDate(DateConverterUtil.getStringFromDate(runDate), lv.intValue()));
+			Query<Object[]> qury = session.createQuery(queryString);
+			List<Object[]> rows = qury.getResultList(); 
+
+			ArrayList<FailedJobsPerDateBubbleBean> resultList = new java.util.ArrayList<FailedJobsPerDateBubbleBean>();
+			
+			for (Object[] loads : rows) {
+				int nr = ((Long) loads[0]).intValue();
+				String loadName = (String) loads[1];
+				String subLoadName = (String) loads[2];
+				java.sql.Date runEndDate = (java.sql.Date) loads[3];
+				String runStatus = (String) loads[4];
+				resultList.add(new FailedJobsPerDateBubbleBean(nr, loadName, subLoadName, runEndDate.toString(), runStatus.substring(0, runStatus.length() > 30 ? 30 : runStatus.length())));
 			}
 
-			request.setAttribute("P_RUNDATE", request.getParameter("P_RUNDATE"));
-			out.println(gson.toJson(resultList));
-
 			session.getTransaction().commit();
+			out.println(gson.toJson(resultList));
 			
 			try {
 				session.close();
 			} catch (Exception e) {
 			}
 
-			
-			
 		}else {
 			Gson gson = new Gson();
 			response.setContentType("application/json");
@@ -85,10 +91,11 @@ public class GetLoadStatusServlet extends HttpServlet {
 			Session session = factory.openSession();
 			session.beginTransaction();
 
-			String queryString = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_RUNNING_ALLJOBS_VIA_DATE");
+			String queryString = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_RUNNING_JOBS_FAILED");
 
 			Query<LoadStats> query = session.createQuery(queryString);
-			query.setParameter("runDate", DateConverterUtil.getDateFromString(request.getParameter("P_RUNDATE") ) );
+			query.setMaxResults(5);
+
 			List<LoadStats> rows = query.getResultList();
 			List<RunningLoadsPerDate> resultList = new ArrayList<RunningLoadsPerDate>();
 			for (LoadStats stat : rows) {
@@ -114,5 +121,5 @@ public class GetLoadStatusServlet extends HttpServlet {
 		doGet(request, response);
 
 	}
-	 
+
 }

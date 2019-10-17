@@ -33,11 +33,11 @@ import com.logitech.operationmart.beans.v2.JobRuns;
  * @Date: 29-Aug-2018
  */
 
-public class GetRunningJobsServlet extends HttpServlet {
+public class GetRunningJobsServlet_V2 extends HttpServlet {
 
 	private static final long serialVersionUID = 100L;
 
-	public GetRunningJobsServlet() {
+	public GetRunningJobsServlet_V2() {
 		super();
 
 	}

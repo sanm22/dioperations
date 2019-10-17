@@ -23,7 +23,7 @@
 
     $(document).ready(function () {
  		$.ajax({
-	        url: "GetRunningLoadsServlet",
+	        url: "GetRunningJobsServlet_V2",
 	        dataType: "JSON",
 	        success: function (result) { 
 	          google.charts.setOnLoadCallback(function () {
@@ -33,103 +33,58 @@
 	        }
 	      })
     });
-    
- 
 
 
     function drawChart(result) {
 		
-      try{
-    	  var urlParam = new URLSearchParams(window.location.search).get("P_LOADNAME");
-          if(!urlParam){ 
-        	  drawBaarChart(result);
-          }else{
-        	  drawTaableChart(result);
-          }  
-      }catch(err){
-    	  //Do nothing
+      
+      var urlParam = new URLSearchParams(window.location.search).get("P_RUNDATE");
+      if(!urlParam){ 
+    	  drawBaarChart(result);
+      }else{
+    	  
+    	  drawPieChart(result);
       }
-     
 
     }
     
-    function drawBaarChart(result){ 
-    	var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Load Name');
-        data.addColumn('number', 'No Of Runs');
-        var dataArray = [];
-        $.each(result, function (i, obj) { 
-          dataArray.push([obj.loadName, obj.nr])
+    function drawBaarChart(result){
+    	var data = google.visualization.arrayToDataTable([
+            ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
+             'Western', 'Literature', { role: 'annotation' } ],
+            ['2010', 10, 24, 20, 32, 18, 5, ''],
+            ['2020', 16, 22, 23, 30, 16, 9, ''],
+            ['2030', 28, 19, 29, 30, 12, 13, '']
+          ]);
 
-        });
-		
-        data.addRows(dataArray);
-			
-        var barchart_options = {
-          title: 'Running Loads',
-          width: 470,
-          height: 200,
-          legend: {
-            position: 'top',
-            maxLines: 3
-          },
-          animation: {
-            duration: 100,
-            easing: 'out',
-          }
-
-        };
-
-
-        var barchart = new google.visualization.BarChart(document
-          .getElementById('barchart_div'));
-        
-        google.visualization.events.addListener(barchart, 'select',
-                selectHandler);
-        
-        function selectHandler() {
-			
-          try{
-        	  var selection = barchart.getSelection();
-        	  for (var i = 0; i < selection.length; i++) {
-                  var item = selection[i];
-                }
-                var value = data.getValue(item.row, item.column);
-                var key = dataArray[item.row][0];
-                reloadPage(key, value);
-                
-          }catch(err){
-        	  //Eo noting
-          }
-		  
+          var options = {
+            width: 600,
+            height: 400,
+            legend: { position: 'top', maxLines: 3 },
+            bar: { groupWidth: '75%' },
+            isStacked: true,
+          };
           
-        }
-
-
-        barchart.draw(data, barchart_options); 
     }
 
     function reloadPage(key, value) {
-
-  
 		
       $.ajax({
-	        url: "GetRunningLoadsServlet?P_LOADNAME=" + key,
+	        url: "GetRunningJobsServlet?P_RUNDATE=" + key,
 	        dataType: "JSON",
 	        success: function (result) { 
-	          google.charts.setOnLoadCallback(function () { 
-	        	  drawTaableChart(result);
-	 
+	    
+	          google.charts.setOnLoadCallback(function () {
+	        	  
+	        	  drawPieChart(result);
 	          });
 	        }
 	      });
     };
 
 	function drawTaableChart(result1) {
-
-		hideBarChart();
-
 		
+		hideBarChart();
         
           var cssClassNames = {
             'headerRow': 'italic-darkblue-font large-font bold-font',
@@ -146,36 +101,25 @@
           var options = {'showRowNumber': true, 'allowHtml': true, 'cssClassNames': cssClassNames};
           
           var data1 = new google.visualization.DataTable();
-          data1.addColumn('string', 'Job Name');
-          data1.addColumn('string', 'Status');
-          data1.addColumn('date', 'Start Time'); 
-          data1.addRows(Object.keys(data1).length+2); 
+          data1.addColumn('string', 'Name');
+          data1.addColumn('number', 'Run Date');
+          data1.addColumn('boolean', 'Start Time');
+          data1.addRows(5);
+
+		
 		var dataArray1 = [];
+		var i=0;
+		
+        $.each(result1, function (i1, obj1) {
+        	var j=0;
+        	data1.setCell(i, j, obj1.runDate);
+        	j = j+1;
+        	data1.setCell(i, j, obj1.nr);
+        	j = j+1;
+        	data1.setCell(i, j, true); 
+        	i = i+1;
+        });
  
-		
-		var formatter = new google.visualization.DateFormat({
-			pattern: "hh:mm:ss"
-		});
-		
-		var rowPosition = 0;
-		try{
-			$.each(result1, function (rowPosition, obj1) {
-	        	
-	        	var j=0;
-	        	data1.setCell(rowPosition, j, obj1.jobName.substring ( obj1.jobName.lastIndexOf("/")+1, obj1.jobName.length)); 
-	        	j = j+1;
-	        	data1.setCell(rowPosition, j, obj1.runStatus); 
-	        	j = j+1;
-	        	data1.setCell(rowPosition, j, new Date(obj1.runStartDate)); 
-	        	rowPosition = rowPosition+1; 
-	        });
-		}catch(err){
-			//Do nothing
-		}
-        
-		 
-        formatter.format(data1, 2);
-         
         var container1 = document.getElementById('table_div');
 
 		var table1 = new google.visualization.Table(container1);
@@ -223,45 +167,53 @@ function goBackFunc(){
 	
 	enableBarChart();
 	hideTableChart();
+	hidePieChart();
 }
 
-  </script>
-  
-  <script type=text/javascript>
-  
+function drawPieChart(result) {
 
-function reloadIFrame(){
-	
-	window.location.reload();
-// 	var x = document.getElementById("button_div"); 
-// 	if(x.style.display == "none"){
-// 		$.ajax({
-// 	        url: "GetRunningLoadsServlet",
-// 	        dataType: "JSON",
-// 	        success: function (result) { 
-// 	        	google.charts.setOnLoadCallback(function () {
-// 	        	  hideBackButton();
-// 	        	  drawBaarChart(result);
-// 	          });
-// 	        }
-// 	      });
-// 	}else{
-		
-// 		var urlParam = new URLSearchParams(window.location.search).get("P_LOADNAME");
-// 		$.ajax({
-// 	        url: "GetRunningLoadsServlet?P_LOADNAME=" + urlParam,
-// 	        dataType: "JSON",
-// 	        success: function (result) {
-// 	          google.charts.setOnLoadCallback(function () { 
-// 	        	  drawTaableChart(result);
-// 	          });
-// 	        }
-// 	      });
-// 	}
     
-} 
-	 
-</script>
+	var data = [];
+	data.push(['LoadName', '#Runs']);
+    $.each(result, function (i1, obj1) {
+    	data.push([obj1.loadName, obj1.nr]);
+    });
+    
+    var data_table = google.visualization.arrayToDataTable(data);
+    var options = {
+      title: '#Job Runs on Selected date'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    google.visualization.events.addListener(chart, 'select', selectChartHandler);
+    
+    function selectChartHandler(){
+
+        var item="";
+        var selectedItem = chart.getSelection()[0];
+        
+        if (selectedItem) {
+        	alert(data[selectedItem.row+1]);
+        }
+    }
+    
+    chart.draw(data_table, options);
+    hideTableChart();
+    hideBarChart();
+    enableBackButton();
+  }
+  
+  
+  
+function hidePieChart(){
+	var x = document.getElementById("piechart");
+	x.style.display = "none";
+}
+  </script>
+
+
+      
+    
 
   <style type='text/css'>
     .bold-green-font {
@@ -315,26 +267,15 @@ function reloadIFrame(){
     .beige-background {
       background-color: beige;
     }
-    
-    .floated {
-   float:left;
-   margin-right:5px;
-}
-.floated {
-  float:left;
-  margin-right:5px;
-}
   </style>
 
 
 
 </head>
 
-
-
-
-<%  
-if( request.getAttribute("P_LOADNAME") == null ) {
+<% 
+ 
+if( request.getAttribute("P_RUNDATE") == null ) {
 		
 		out.println("<script type='text/javascript'>");
 		out.println("google.charts.load('current', {packages: ['corechart']}); ");
@@ -346,14 +287,10 @@ if( request.getAttribute("P_LOADNAME") == null ) {
 		out.println("google.charts.load('current', {packages: ['table']}); ");
 		out.println("</script>");
 		
+		out.println("<div id='piechart' style='border: 1px solid #ccc'></div>"); 
 		
 		out.println("<div id='table_div' style='border: 1px solid #ccc'></div>");
-		out.println("<input type='button' class='floated' value='Back' onclick='goBackFunc()' id='button_div'> ");
-		
-		out.println("<input type='button'  class='floated' value='Refresh' onclick='reloadIFrame();'>");
-		
-		//out.println("<iframe id='iframe1' height='150' width='300' src='./running_loads.jsp'></iframe>");
-		
+		out.println("<input type='button' value='Back' onclick='goBackFunc()' id='button_div'> ");
 
 }else{
 		

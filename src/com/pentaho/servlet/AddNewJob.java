@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.pentaho.addnewentry.AddNew;
+//import com.pentaho.addnewentry.AddNew;
 import com.pentaho.dao.ShellScripting;
 
 @WebServlet("/AddNewJob")
@@ -40,8 +40,8 @@ public class AddNewJob extends HttpServlet {
 		logger.debug("values:" + loadName + " ," + subLoadName + ", " + jobName + " ," + jobOrder + " ," + jobType
 				+ " ," + jobPath + ", " + enabledFlg + ", " + loadSchedule + ", " + loadId + " ," + subLoadId);
 		
-		AddNew.addNewEntry(loadName, subLoadName, jobName, enabledFlg, jobOrder, jobType, jobPath, loadId, subLoadId,
-				loadSchedule);
+//		AddNew.addNewEntry(loadName, subLoadName, jobName, enabledFlg, jobOrder, jobType, jobPath, loadId, subLoadId,
+//				loadSchedule);
 		
 		request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 	}

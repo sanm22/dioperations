@@ -43,7 +43,7 @@
     	  drawBaarChart(result);
       }else{
     	  
-    	  drawTaableChart(result);
+    	  drawPieChart(result);
       }
 
     }
@@ -54,18 +54,17 @@
         data.addColumn('number', 'No Of Runs');
         var dataArray = [];
         $.each(result, function (i, obj) {
-          dataArray.push([obj.runDate, obj.nr])
-
+          dataArray.push([obj.loadName, obj.nr])
         });
 
         data.addRows(dataArray);
 
         var barchart_options = {
-          title: 'Running Jobs',
+          title: '# Job runs per date',
           width: 470,
           height: 200,
           legend: {
-            position: 'top',
+            position: 'bottom',
             maxLines: 3
           },
           animation: {
@@ -78,15 +77,14 @@
         var barchart = new google.visualization.BarChart(document
           .getElementById('barchart_div'));
         
-        google.visualization.events.addListener(barchart, 'select',
-                selectHandler);
+        google.visualization.events.addListener(barchart, 'select', selectHandler);
         
         function selectHandler() {
 
           var selection = barchart.getSelection();
-
+		  var item="";
           for (var i = 0; i < selection.length; i++) {
-            var item = selection[i];
+            item = selection[i];
 
           }
           var value = data.getValue(item.row, item.column);
@@ -108,7 +106,7 @@
 	    
 	          google.charts.setOnLoadCallback(function () {
 	        	  
-	        	  drawTaableChart(result);
+	        	  drawPieChart(result);
 	          });
 	        }
 	      });
@@ -199,11 +197,65 @@ function goBackFunc(){
 	
 	enableBarChart();
 	hideTableChart();
+	hidePieChart();
 }
 
+function drawPieChart(result) {
+
+    
+	var data = [];
+	data.push(['LoadName', '#Runs']);
+    $.each(result, function (i1, obj1) {
+    	data.push([obj1.loadName, obj1.nr]);
+    });
+    
+    var data_table = google.visualization.arrayToDataTable(data);
+    var options = {
+      title: '#Job Runs by Load vise on Selected date'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    google.visualization.events.addListener(chart, 'select', selectChartHandler);
+    
+    function selectChartHandler(){
+
+        var item="";
+        var selectedItem = chart.getSelection()[0];
+        
+        if (selectedItem) {
+        	alert(data[selectedItem.row+1]);
+        	$.ajax({
+    	        url: "GetRunningJobsServlet?P_RUNDATE=" + key,
+    	        dataType: "JSON",
+    	        success: function (result) { 
+    	    
+    	          google.charts.setOnLoadCallback(function () {
+    	        	  
+    	        	  drawPieChart(result);
+    	          });
+    	        }
+    	      });
+        	
+        }
+    }
+    
+    chart.draw(data_table, options);
+    hideTableChart();
+    hideBarChart();
+    enableBackButton();
+  }
+  
+  
+  
+function hidePieChart(){
+	var x = document.getElementById("piechart");
+	x.style.display = "none";
+}
   </script>
 
 
+      
+    
 
   <style type='text/css'>
     .bold-green-font {
@@ -277,6 +329,7 @@ if( request.getAttribute("P_RUNDATE") == null ) {
 		out.println("google.charts.load('current', {packages: ['table']}); ");
 		out.println("</script>");
 		
+		out.println("<div id='piechart' style='border: 1px solid #ccc'></div>"); 
 		
 		out.println("<div id='table_div' style='border: 1px solid #ccc'></div>");
 		out.println("<input type='button' value='Back' onclick='goBackFunc()' id='button_div'> ");

@@ -137,4 +137,24 @@
   <error-page>
     <location>/error.jsp</location>
   </error-page>
+  
+  
+  <servlet>
+    <servlet-name>GetRunningJobsServlet_V2</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.GetRunningJobsServlet_V2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRunningJobsServlet_V2</servlet-name>
+    <url-pattern>/GetRunningJobsServlet_V2</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>GetFailedJobsServlet_V2</servlet-name>
+    <servlet-class>com.logitech.operationmart.controllers.GetFailedJobsServlet_V2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetFailedJobsServlet_V2</servlet-name>
+    <url-pattern>/GetFailedJobsServlet_V2</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

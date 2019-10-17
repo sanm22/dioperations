@@ -61,7 +61,7 @@
         data.addRows(dataArray);
 
         var barchart_options = {
-          title: 'Load Status',
+          title: 'Master Scripts Load Runs',
           width: 470,
           height: 200,
           legend: {
@@ -78,19 +78,19 @@
         var barchart = new google.visualization.BarChart(document
           .getElementById('barchart_div'));
         
-        google.visualization.events.addListener(barchart, 'select',
-                selectHandler);
+        //google.visualization.events.addListener(barchart, 'select', selectHandler);
         
         function selectHandler() {
 
           var selection = barchart.getSelection();
-
+          var item ="";
           for (var i = 0; i < selection.length; i++) {
-            var item = selection[i];
-
+            item = selection[i];
+			
           }
           var value = data.getValue(item.row, item.column);
           var key = dataArray[item.row][0];
+          console.log(key);
           reloadPage(key, value);
           
         }

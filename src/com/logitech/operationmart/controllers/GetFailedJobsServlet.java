@@ -18,6 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import com.google.gson.Gson;
+import com.logitech.operationmart.utils.DateConverterUtil;
 import com.logitech.operationmart.utils.HibernateUtil;
 import com.logitech.operationmart.beans.LoadStats;
 import com.logitech.operationmart.beans.RunningLoadsPerDate;
@@ -58,11 +59,9 @@ public class GetFailedJobsServlet extends HttpServlet {
 			List<Object[]> rows = query.getResultList();
 			List<RunningLoadsPerDate> resultList = new ArrayList<RunningLoadsPerDate>();
 			for (Object[] line : rows) {
-				Timestamp ts = (Timestamp) line[0];
-				Date d = new Date(ts.getTime());
-				String strDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
+				java.sql.Date sqlDate = (java.sql.Date) line[0];
 				Long lv = (Long) line[1];
-				resultList.add(new RunningLoadsPerDate(strDate, lv.intValue()));
+				resultList.add(new RunningLoadsPerDate(DateConverterUtil.getStringFromDate(sqlDate), lv.intValue()));
 			}
 
 			request.setAttribute("P_RUNDATE", request.getParameter("P_RUNDATE"));
