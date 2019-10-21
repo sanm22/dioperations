@@ -29,16 +29,15 @@ public class StartTDELoad extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		long stTime = System.currentTimeMillis();
 
 		PrintWriter out = response.getWriter();
 		
 		try {
-			String command = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_RUN") + " " +request.getParameter("loadName")+ " DAILY";
+			String command = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_CARTE_LOAD_RUN") + " " +request.getParameter("loadName")+ " DAILY";
 			out.println(command +" </br>"); 
 			out.println(" </br> ============================ </br>");
 			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec(command);
+			Process proc = rt.exec("sh "+command);
 			InputStream stderr = proc.getErrorStream();
 			InputStreamReader isr = new InputStreamReader(stderr);
 			BufferedReader br = new BufferedReader(isr);
@@ -53,10 +52,6 @@ public class StartTDELoad extends HttpServlet {
 			t.printStackTrace();
 		}
 
-
-		long etTime = System.currentTimeMillis();
-
-		out.println("time taken in seconds " + (etTime - stTime) / 1000);
 	}
 
 }

@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+
 /*
  * Author: MateenSA
  * Organization: Zensar Technologies
@@ -19,9 +23,24 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BI_JOBS_RUNS")
+@FilterDef(
+		name = "runStatusFltr", 
+	    parameters = @ParamDef(name = "yourRunStatusParam", type = "string")
+	)
+@Filter(
+	    name = "loadnameinFltr", 
+	    condition = "runStatus like :yourRunStatusParam"
+	)
+@FilterDef(
+		name = "loadNameInFltr", 
+	    parameters = @ParamDef(name = "yourListLoadNamesParam", type = "string")
+	)
+@Filter(
+	    name = "loadNameInFltr", 
+	    condition = " LOAD_ID in (:yourListLoadNamesParam)" 
+	)
 public class JobRuns {
 
-	@SuppressWarnings("unused")
 	private final long serialVersionId = 276L;
 
 	private Integer runId;

@@ -19,8 +19,6 @@
 
   <script type="text/javascript">
 
-
-
     $(document).ready(function () {
  		$.ajax({
 	        url: "GetRunningJobsServlet",
@@ -36,13 +34,11 @@
 
 
     function drawChart(result) {
-		
       
       var urlParam = new URLSearchParams(window.location.search).get("P_RUNDATE");
       if(!urlParam){ 
     	  drawBaarChart(result);
       }else{
-    	  
     	  drawPieChart(result);
       }
 
@@ -74,8 +70,7 @@
 
         };
 
-        var barchart = new google.visualization.BarChart(document
-          .getElementById('barchart_div'));
+        var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
         
         google.visualization.events.addListener(barchart, 'select', selectHandler);
         
@@ -85,14 +80,12 @@
 		  var item="";
           for (var i = 0; i < selection.length; i++) {
             item = selection[i];
-
           }
           var value = data.getValue(item.row, item.column);
           var key = dataArray[item.row][0];
           reloadPage(key, value);
           
         }
-
 
         barchart.draw(data, barchart_options); 
     }
@@ -105,58 +98,11 @@
 	        success: function (result) { 
 	    
 	          google.charts.setOnLoadCallback(function () {
-	        	  
 	        	  drawPieChart(result);
 	          });
 	        }
 	      });
     };
-
-	function drawTaableChart(result1) {
-		
-		hideBarChart();
-        
-          var cssClassNames = {
-            'headerRow': 'italic-darkblue-font large-font bold-font',
-            'tableRow': '',
-            'oddTableRow': 'beige-background',
-            'selectedTableRow': 'orange-background large-font',
-            'hoverTableRow': '',
-            'headerCell': 'gold-border',
-            'tableCell': '',
-            'rowNumberCell': 'underline-blue-font'};
-          
-          
-			
-          var options = {'showRowNumber': true, 'allowHtml': true, 'cssClassNames': cssClassNames};
-          
-          var data1 = new google.visualization.DataTable();
-          data1.addColumn('string', 'Name');
-          data1.addColumn('number', 'Run Date');
-          data1.addColumn('boolean', 'Start Time');
-          data1.addRows(5);
-
-		
-		var dataArray1 = [];
-		var i=0;
-		
-        $.each(result1, function (i1, obj1) {
-        	var j=0;
-        	data1.setCell(i, j, obj1.runDate);
-        	j = j+1;
-        	data1.setCell(i, j, obj1.nr);
-        	j = j+1;
-        	data1.setCell(i, j, true); 
-        	i = i+1;
-        });
- 
-        var container1 = document.getElementById('table_div');
-
-		var table1 = new google.visualization.Table(container1);
-        table1.draw(data1, options);
-        table1.setSelection([{'row': 1}]);   
-      }
-	
 
 	
 function hideTableChart(){
@@ -168,40 +114,48 @@ function hideTableChart(){
 function hideBarChart(){
 	var x = document.getElementById("barchart_div");
 	x.style.display = "none"; 
-	var x = document.getElementById("table_div");
+	var x = document.getElementById("refresh_button_div");
+	x.style.display = "none";
+	var x = document.getElementById("piechart");
 	x.style.display = "block";
-	var x = document.getElementById("button_div");
+	var x = document.getElementById("back_button_div");
 	x.style.display = "block";
 }
 	
 function hideBackButton(){
 
-	var x = document.getElementById("button_div");
+	var x = document.getElementById("back_button_div");
 	x.style.display = "none";
 }	
 
 
 function enableBackButton(){
 
-	var x = document.getElementById("button_div");
+	var x = document.getElementById("back_button_div");
+	x.style.display = "block";
+}
+
+
+function enableRefreshButton(){
+
+	var x = document.getElementById("refresh_button_div");
 	x.style.display = "block";
 }
 	
 function enableBarChart(){
 	var x = document.getElementById("barchart_div");
 	x.style.display = "block";
-	hideBackButton();
 }	
 	
 function goBackFunc(){ 
 	
 	enableBarChart();
-	hideTableChart();
 	hidePieChart();
+	hideBackButton();
+	enableRefreshButton();
 }
 
 function drawPieChart(result) {
-
     
 	var data = [];
 	data.push(['LoadName', '#Runs']);
@@ -215,13 +169,14 @@ function drawPieChart(result) {
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    google.visualization.events.addListener(chart, 'select', selectChartHandler);
+    //google.visualization.events.addListener(chart, 'select', selectChartHandler);
     
     function selectChartHandler(){
 
         var item="";
         var selectedItem = chart.getSelection()[0];
         
+        /*
         if (selectedItem) {
         	alert(data[selectedItem.row+1]);
         	$.ajax({
@@ -237,10 +192,12 @@ function drawPieChart(result) {
     	      });
         	
         }
+        
+        */
     }
     
     chart.draw(data_table, options);
-    hideTableChart();
+
     hideBarChart();
     enableBackButton();
   }
@@ -331,8 +288,8 @@ if( request.getAttribute("P_RUNDATE") == null ) {
 		
 		out.println("<div id='piechart' style='border: 1px solid #ccc'></div>"); 
 		
-		out.println("<div id='table_div' style='border: 1px solid #ccc'></div>");
-		out.println("<input type='button' value='Back' onclick='goBackFunc()' id='button_div'> ");
+		out.println("<input type='button' value='Refresh' onclick='window.location.reload()' id='refresh_button_div'> ");
+		out.println("<input type='button' value='Back' onclick='goBackFunc()' id='back_button_div'> ");
 
 }else{
 		

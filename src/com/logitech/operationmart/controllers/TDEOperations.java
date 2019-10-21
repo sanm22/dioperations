@@ -17,6 +17,9 @@ import org.hibernate.query.Query;
 
 import com.google.gson.Gson;
 import com.logitech.operationmart.beans.BiopsLoadStats;
+import com.logitech.operationmart.beans.v2.EventDetails;
+import com.logitech.operationmart.beans.v2.JobRunDetailsSimplified;
+import com.logitech.operationmart.beans.v2.JobRuns;
 import com.logitech.operationmart.utils.HibernateUtil;
 
 
@@ -43,10 +46,7 @@ public class TDEOperations extends HttpServlet {
 		Session session = factory.openSession();
 		session.beginTransaction();
  		
-		long startMillis = System.currentTimeMillis();
-		List<BiopsLoadStats> li = getLastTwoDaysTDERanList(session);
-		long endMillis = System.currentTimeMillis();
-		System.out.println(endMillis - startMillis+ " is time taken " + endMillis + " " + startMillis);
+		List<EventDetails> li = getLastTwoDaysTDERanList(session);
 		out.println(gson.toJson(li));
 		
 		session.getTransaction().commit();
@@ -60,21 +60,29 @@ public class TDEOperations extends HttpServlet {
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private List<BiopsLoadStats> getLastTwoDaysTDERanList(Session session) {
+	private List<EventDetails> getLastTwoDaysTDERanList(Session session) {
 		
-		List<BiopsLoadStats> li = new ArrayList<BiopsLoadStats>();
-		
-		String queryString = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_STATUS");
-		int nrResults = Integer.parseInt(ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_STATUS_MAX_NR"));
-				
-		for(String lName : ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_STATUS_LIST").split(",")) {
-			Query query = session.createQuery(queryString).setCacheable(true);
-			query.setParameter("loadName", lName);
-			query.setMaxResults(nrResults);
-			li.addAll(query.getResultList());
-		}
-		
-		return li;
+//		List<JobRuns> li = new ArrayList<JobRuns>();
+//		
+//		String queryString = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_STATUS_V2");
+//		int nrResults = Integer.parseInt(ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_STATUS_MAX_NR"));
+//				
+//		for(String lName : ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_STATUS_LIST_V2").split(",")) {
+//			Query<JobRuns> query = session.createQuery(queryString).setCacheable(true);
+//			query.setParameter("loadName", lName);
+//			query.setMaxResults(nrResults);
+//			li.addAll(query.getResultList());
+//		}
+//		
+//		List<JobRunDetailsSimplified> newLi = new ArrayList<JobRunDetailsSimplified>();
+//		for (JobRuns jobRuns : li) {
+//			newLi.add(new JobRunDetailsSimplified(jobRuns.getJobName(), jobRuns.getJobs().getJobOrder(), jobRuns.getJobs().getJobType(), jobRuns.getLoads().getLoadName(), jobRuns.getSubLoads().getSubLoadName(),
+//			jobRuns.getPentahoJobId(), jobRuns.getRunStartDate(), jobRuns.getRunEndDate(), jobRuns.getRunStatus(), jobRuns.getRunId()));
+//		}
+		String queryString = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_STATUS_V2");
+		Query<EventDetails> query = session.createQuery(queryString).setCacheable(true);
+		query.setMaxResults(Integer.parseInt(ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_TDE_STATUS_MAX_NR")));
+		return query.getResultList();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

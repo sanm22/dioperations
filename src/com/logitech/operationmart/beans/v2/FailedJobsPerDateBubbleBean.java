@@ -4,7 +4,8 @@ import java.sql.Date;
 
 public class FailedJobsPerDateBubbleBean {
 
-	private int nr;
+	private int nrEtlErrors;
+	private int nrKtlErrors;
 	private String loadName;
 	private String subLoadName;
 	private String runEndDate;
@@ -14,24 +15,33 @@ public class FailedJobsPerDateBubbleBean {
 		super();
 	}
 
-	public FailedJobsPerDateBubbleBean(int nr, String loadName, String subLoadName, String runEndDate,
+	public FailedJobsPerDateBubbleBean(int nrEtlErrors, int nrKtlErrors, String loadName, String subLoadName, String runEndDate,
 			String runStatus) {
 		super();
-		this.nr = nr;
+		this.nrEtlErrors = nrEtlErrors;
+		this.nrKtlErrors = nrKtlErrors;
 		this.loadName = loadName;
 		this.subLoadName = subLoadName;
 		this.runEndDate = runEndDate;
 		this.runStatus = runStatus;
 	}
 
-	public int getNr() {
-		return nr;
+	public int getNrEtlErrors() {
+		return nrEtlErrors;
+	}
+	
+	public void setNrEtlErrors(int nrEtlErrors) {
+		this.nrEtlErrors = nrEtlErrors;
 	}
 
-	public void setNr(int nr) {
-		this.nr = nr;
+	public int getNrKtlErrors() {
+		return nrKtlErrors;
 	}
-
+	
+	public void setNrKtlErrors(int nrKtlErrors) {
+		this.nrKtlErrors = nrKtlErrors;
+	}
+	
 	public String getLoadName() {
 		return loadName;
 	}
@@ -66,10 +76,10 @@ public class FailedJobsPerDateBubbleBean {
 
 	@Override
 	public String toString() {
-		return "FailedJobsPerDateBubbleBean [nr=" + nr + ", loadName=" + loadName + ", subLoadName=" + subLoadName
-				+ ", runEndDate=" + runEndDate + ", runStatus=" + runStatus + "]";
+		return "FailedJobsPerDateBubbleBean [nrEtlErrors=" + nrEtlErrors + ", nrKtlErrors=" + nrKtlErrors
+				+ ", loadName=" + loadName + ", subLoadName=" + subLoadName + ", runEndDate=" + runEndDate
+				+ ", runStatus=" + runStatus + "]";
 	}
-	
- 
 
+	 
 }

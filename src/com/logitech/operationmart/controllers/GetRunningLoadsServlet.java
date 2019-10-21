@@ -23,6 +23,8 @@ import org.hibernate.query.Query;
 import com.google.gson.Gson;
 import com.logitech.operationmart.beans.LoadStats;
 import com.logitech.operationmart.beans.RunningLoadsPerLoadName;
+import com.logitech.operationmart.beans.v2.JobRunDetailsSimplified;
+import com.logitech.operationmart.beans.v2.JobRuns;
 import com.logitech.operationmart.beans.v2.Loads;
 import com.logitech.operationmart.utils.HibernateUtil;
 
@@ -85,17 +87,18 @@ public class GetRunningLoadsServlet extends HttpServlet {
 			Session session = factory.openSession();
 			session.beginTransaction();
 
-			String quryLoadId = " select e1 from Loads e1 where e1.loadName =  '"+request.getParameter("P_LOADNAME")+"'";
-			List<Loads> loads = session.createQuery(quryLoadId).getResultList();
-			
 			String queryString = ResourceBundle.getBundle("dioperations").getString("LOGI_POM_HIB_RUNNING_JOBS_PER_LOAD_NAME_V2");
+			Query<JobRuns> query = session.createQuery(queryString);
+			query.setParameter("loadName", request.getParameter("P_LOADNAME").toString());
 
-			Query<LoadStats> query = session.createQuery(queryString);
-			query.setParameter("loadId", loads.get(0).getLoadId());
-
-			List<LoadStats> rows = query.getResultList();
-
-			out.println(gson.toJson(rows));
+			List<JobRuns> rows = query.getResultList();
+			List<JobRunDetailsSimplified> newLi = new ArrayList<JobRunDetailsSimplified>();
+			for (JobRuns jobRuns : rows) {
+				newLi.add(new JobRunDetailsSimplified(jobRuns.getJobName(), jobRuns.getJobs().getJobOrder(), jobRuns.getJobs().getJobType(), jobRuns.getLoads().getLoadName(), jobRuns.getSubLoads().getSubLoadName(),
+				jobRuns.getPentahoJobId(), jobRuns.getRunStartDate(), jobRuns.getRunEndDate(), jobRuns.getRunStatus(), jobRuns.getRunId()));
+			}
+			
+			out.println(gson.toJson(newLi));
 			session.getTransaction().commit();
 			
 			try {

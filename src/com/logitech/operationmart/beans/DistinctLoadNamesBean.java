@@ -5,18 +5,16 @@ public class DistinctLoadNamesBean {
 	
 	private String loadName;
 	private String subjectAreaName;
-	private String jobPath;
 	private String jobName;
 	
 	public DistinctLoadNamesBean() {
 		super();
 	}
 
-	public DistinctLoadNamesBean(String loadName, String subjectAreaName, String jobPath, String jobName) {
+	public DistinctLoadNamesBean(String loadName, String subjectAreaName, String jobName) {
 		super();
 		this.loadName = loadName;
 		this.subjectAreaName = subjectAreaName;
-		this.jobPath = jobPath;
 		this.jobName = jobName;
 	}
 
@@ -36,14 +34,6 @@ public class DistinctLoadNamesBean {
 		this.subjectAreaName = subjectAreaName;
 	}
 
-	public String getJobPath() {
-		return jobPath;
-	}
-
-	public void setJobPath(String jobPath) {
-		this.jobPath = jobPath;
-	}
-
 	public String getJobName() {
 		return jobName;
 	}
@@ -54,11 +44,7 @@ public class DistinctLoadNamesBean {
 
 	@Override
 	public String toString() {
-		return "DistinctLoadNamesBean [loadName=" + loadName + ", subjectAreaName=" + subjectAreaName + ", jobPath="
-				+ jobPath + ", jobName=" + jobName + "]";
+		return "DistinctLoadNamesBean [loadName=" + loadName + ", subjectAreaName=" + subjectAreaName + ", jobName=" + jobName + "]";
 	}
-	
-	
-	
 	
 }

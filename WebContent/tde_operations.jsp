@@ -121,41 +121,24 @@
 		var data = new google.visualization.DataTable();
 
 		data.addColumn('string', 'Load Name');
-	    data.addColumn('string', 'C Status');
-	    data.addColumn('string', 'F Status');
-	    data.addColumn('string', 'Run Day');
+	    data.addColumn('string', 'Load Status');
  	    data.addColumn('string', 'Run Date');
-	    data.addColumn('string', 'S Time');
-	    data.addColumn('string', 'E Time');
-	    data.addColumn('string', 'F Time');
-	    data.addColumn('string', 'Nr# in Table');
-	    data.addColumn('string', 'Table Audit Timestamp');
+	    data.addColumn('string', 'Run Time');
 	    data.addColumn('string', 'Restart Load'); 
 	    
 	    data.addRows(8);
 		var dbDateFormat = 'MMM DD, YYYY hh:mm:ss A';
 	    var i=0;
 	    $.each(result, function (i, obj) { 
+	    	console.log(obj);
 	    	var j=0;
 	    	data.setCell(i, j, obj.loadName, obj.loadName, {'className': 'deeppink-border'});
 	    	j = j+1;
-	    	data.setCell(i, j, obj.completionStatus, obj.completionStatus, {'className': 'deeppink-border'}); 
+	    	data.setCell(i, j, obj.eventMessage, obj.eventMessage, {'className': 'deeppink-border'}); 
 	    	j = j+1;
-	    	data.setCell(i, j, obj.failedStatus, obj.failedStatus, {'className': 'deeppink-border'}); 
+	    	data.setCell(i, j, '', moment(obj.eventTime, dbDateFormat).format('ll'), {'className': 'deeppink-border'}); 
 	    	j = j+1;
-	    	data.setCell(i, j, obj.runDay, obj.runDay, {'className': 'deeppink-border'}); 
-	    	j = j+1;
-	    	data.setCell(i, j, '', moment(obj.runDate, dbDateFormat).format('ll'), {'className': 'deeppink-border'}); 
-	    	j = j+1;
-	    	data.setCell(i, j, '', moment(obj.startTime, dbDateFormat).format('LTS'), {'className': 'deeppink-border'}); 
-	    	j = j+1;
-	    	data.setCell(i, j, '', moment(obj.endTime, dbDateFormat).format('LTS'), {'className': 'deeppink-border'}); 
-	    	j = j+1;
-	    	data.setCell(i, j, '', obj.failedTime ? moment(obj.failedTime, dbDateFormat).format('LTS') : '', {'className': 'deeppink-border'});
-	    	j = j+1;
-	    	data.setCell(i, j, '', "0", {'className': 'deeppink-border'});
-	    	j = j+1;
-	    	data.setCell(i, j, '', moment(obj.startTime, dbDateFormat).format('lll'), {'className': 'deeppink-border'});
+	    	data.setCell(i, j, '', moment(obj.eventTime, dbDateFormat).format('LTS'), {'className': 'deeppink-border'}); 
 	    	j = j+1;
 	    	data.setCell(i, j, '', '<a href=./StartTDELoad?loadName='+obj.loadName+' target=_blank >Restart Load</a>', {'className': 'deeppink-border'});
 	    	i = i+1;

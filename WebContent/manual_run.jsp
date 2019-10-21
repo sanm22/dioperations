@@ -23,7 +23,7 @@
 <link rel="stylesheet" type="text/css" href="css/sam.css">
 
 <script defer src="js/material_js.js"></script>
-<script defer src="js/mui.min.js"></script>
+<!-- <script defer src="js/mui.min.js"></script>  -->
 <script defer src="js/table.js"></script>
 
 <script src="js/jquery-1.11.1.js" type="text/javascript"></script>
@@ -75,8 +75,9 @@
 		$.ajax({
 	        url: "GetFormattedLoads",
 	        dataType: "JSON",
-	        success: function (result) { 
+	        success: function (result) {
 	        	globalResult = result;
+	        	console.log(result);
 	          	doUnParse(result);
 	        }
 	      });
@@ -191,12 +192,12 @@ function appendPaths(value){
 }
 
 function reloadJobNameOptions(path){
-	
- 	$('#job').empty();
+
+	$('#job').empty();
  	var set = new Set();
  	set.add(" --- ");
-	$.each(globalResult, function (i, obj) {		
-		if(obj.jobPath == path){
+	$.each(globalResult, function (i, obj) {
+		if(obj.subjectAreaName == path){
 			set.add(obj.jobName);
 		}
 	});
@@ -309,11 +310,9 @@ function validateFormJSFunc(){
 		  			 <div id="txtbx">
 		  			 <br><br>Select Load &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
 		  			 <select id="load" name="load" style="width:400px;" onchange="reloadSubjectAreaOptions(this.value)" ></select>
-					 <br><br>Select Subject Area &nbsp &nbsp 
-					 <select id="subject" name="subject" style="width:400px;" onchange="reloadJobPathOptions(this.value)">  </select>
-					 <br><br>Select Job Path &nbsp &nbsp &nbsp &nbsp &nbsp 
-					 <select id="path" name="path" style="width:400px;" onchange="reloadJobNameOptions(this.value)"> </select>
-					 <br><br>Select Job &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp 
+					 <br><br>Select SubLoad &nbsp &nbsp 
+					 <select id="subject" name="subject" style="width:400px;" onchange="reloadJobNameOptions(this.value)">  </select>
+					 <br><br>Select Job &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
 					 <select id="job" name="job" style="width:400px;" > </select>
 					 </div>
 					 
